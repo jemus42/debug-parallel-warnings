@@ -8,6 +8,6 @@ data.table::setDTthreads(1)
 assert_result <- function(result) {
   checkmate::assert_data_table(result, nrows = n_repls)
   checkmate::assert_names(result, identical.to = c("a", "b"))
-  checkmate::assert_true(unique(result$a), "blabla")
-  checkmate::assert_true(unique(result$b), 3)
+  checkmate::assert_true(unique(result$a) == "blabla")
+  checkmate::assert_true(unique(result$b) == 3)
 }
