@@ -1,4 +1,4 @@
-n_repls = 1e3
+n_repls = 1e4
 n_threads = 20
 
 data.table::setDTthreads(1)
