@@ -1,5 +1,5 @@
 n_repls = 1e4
-n_threads = 20
+n_threads = min(20, parallelly::availableCores() - 1)
 
 data.table::setDTthreads(1)
 
