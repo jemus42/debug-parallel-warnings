@@ -2,13 +2,11 @@ source("settings.R")
 
 library(doParallel)
 library(foreach)
-data.table::setDTthreads(1)
-
 registerDoParallel(n_threads)
 
 cli::cli_alert_info("Running foreach with captured warnings with {n_repls} repls on {n_threads} threads")
 tictoc::tic("foreach with captured warnings")
-result_1 <- foreach(i = seq_len(n_repls),
+result <- foreach(i = seq_len(n_repls),
                   # separate values and warnings, display warnings
                   .final = \(res) {
                     res <- do.call(rbind, res) # transpose
@@ -27,12 +25,14 @@ result_1 <- foreach(i = seq_len(n_repls),
     expr = {
       warning_list_step <- NULL
       a <- "blabla"
-      b <- "3"
+      b <- 3
       sqrt(-1)
       log(-1)
-      res <- data.frame(a,b)
+      res <- data.table::data.table(a,b)
       list(res, warning_list_step)
     }
   )
 }
 tictoc::toc()
+
+assert_result(result)
